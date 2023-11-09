@@ -1,72 +1,77 @@
-import React, { useState } from 'react';
-import {
-    FaTh,
-    FaBars,
-    FaUserAlt,
-    FaRegChartBar,
-    FaCommentAlt,
-    FaShoppingBag,
-    FaThList
-}from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 
+const Sidebar = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const menuItem = [
+    {
+      path: "/",
+      name: "Dashboard",
+      icon: "dashboard",
+    },
+    {
+      path: "/about",
+      name: "About",
+      icon: "info",
+    },
+    {
+      path: "/analytics",
+      name: "Analytics",
+      icon: "analytics",
+    },
+    {
+      path: "/product",
+      name: "Product",
+      icon: "inventory_2",
+    },
+    {
+      path: "/productList",
+      name: "Product List",
+      icon: "list_alt",
+    },
+  ];
 
-const Sidebar = ({children}) => {
-    const[isOpen ,setIsOpen] = useState(false);
-    const toggle = () => setIsOpen (!isOpen);
-    const menuItem=[
-        {
-            path:"/",
-            name:"Dashboard",
-            icon:<FaTh/>
-        },
-        {
-            path:"/about",
-            name:"About",
-            icon:<FaUserAlt/>
-        },
-        {
-            path:"/analytics",
-            name:"Analytics",
-            icon:<FaRegChartBar/>
-        },
-        {
-            path:"/comment",
-            name:"Comment",
-            icon:<FaCommentAlt/>
-        },
-        {
-            path:"/product",
-            name:"Product",
-            icon:<FaShoppingBag/>
-        },
-        {
-            path:"/productList",
-            name:"Product List",
-            icon:<FaThList/>
-        }
-    ]
-    return (
-        <div className="container">
-           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
-               <div className="top_section">
-                   <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
-                   <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
-                       <FaBars onClick={toggle}/>
-                   </div>
-               </div>
-               {
-                   menuItem.map((item, index)=>(
-                       <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                           <div className="icon">{item.icon}</div>
-                           <div style={{display: isOpen ? "block" : "none"}} className="link_text">{item.name}</div>
-                       </NavLink>
-                   ))
-               }
-           </div>
-           <main>{children}</main>
-        </div>
-    );
+  const toggleSidebarOpen = (event) => {
+    event.currentTarget.style.width = "250px";
+  };
+
+  const toggleSidebarClose = (event) => {
+    event.currentTarget.style.width = "55px";
+  };
+
+  return (
+    <div className="container">
+      <div
+        style={{
+          width: "55px",
+        }}
+        className="sidebar"
+        onMouseOver={toggleSidebarOpen}
+        onMouseLeave={toggleSidebarClose}
+      >
+        {menuItem.map((item, index) => (
+          <NavLink
+            to={item.path}
+            key={index}
+            className="link"
+            activeclassName="active"
+          >
+            <div className="material-icons"> {item.icon} </div>{" "}
+            <div
+              style={{
+                whiteSpace: "nowrap",
+                overflow: "hidden"
+              }}
+              className="link_text"
+            >
+              {item.name}{" "}
+            </div>{" "}
+          </NavLink>
+        ))}{" "}
+      </div>{" "}
+      <main> {children} </main>{" "}
+    </div>
+  );
 };
 
 export default Sidebar;
