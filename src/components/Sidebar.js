@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
   const menuItem = [
     {
-      path: "/",
+      path: "/dashboard",
       name: "Dashboard",
       icon: "dashboard",
     },
